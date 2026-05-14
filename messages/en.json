@@ -1,0 +1,25 @@
+{
+  "Auth": {
+    "login": "Login",
+    "register": "Register",
+    "forgotPassword": "Forgot Password",
+    "email": "Email",
+    "password": "Password",
+    "signIn": "Sign In",
+    "signUp": "Sign Up",
+    "noAccount": "Don't have an account?",
+    "hasAccount": "Already have an account?"
+  },
+  "Dashboard": {
+    "title": "User Dashboard",
+    "welcome": "Welcome back, {name}",
+    "orders": "Recent Orders",
+    "wishlist": "Wishlist",
+    "tracking": "Order Tracking"
+  },
+  "Common": {
+    "backToHome": "Back to Home",
+    "save": "Save",
+    "cancel": "Cancel"
+  }
+}

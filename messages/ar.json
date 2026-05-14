@@ -1,0 +1,25 @@
+{
+  "Auth": {
+    "login": "تسجيل الدخول",
+    "register": "إنشاء حساب",
+    "forgotPassword": "نسيت كلمة المرور",
+    "email": "البريد الإلكتروني",
+    "password": "كلمة المرور",
+    "signIn": "دخول",
+    "signUp": "تسجيل",
+    "noAccount": "ليس لديك حساب؟",
+    "hasAccount": "لديك حساب بالفعل؟"
+  },
+  "Dashboard": {
+    "title": "لوحة تحكم المستخدم",
+    "welcome": "مرحباً بعودتك، {name}",
+    "orders": "الطلبات الأخيرة",
+    "wishlist": "قائمة الأمنيات",
+    "tracking": "تتبع الطلبات"
+  },
+  "Common": {
+    "backToHome": "العودة للرئيسية",
+    "save": "حفظ",
+    "cancel": "إلغاء"
+  }
+}
