@@ -66,8 +66,8 @@ export default function HomePage() {
       <footer className="border-t py-6 text-center text-sm text-muted-foreground">
         <p>© 2026 Lap Tec. All rights reserved.</p>
         <div className="mt-2 flex items-center justify-center space-x-4 rtl:space-x-reverse">
-          <Link href="/ar" className="hover:text-cyan-500">العربية</Link>
-          <Link href="/en" className="hover:text-cyan-500">English</Link>
+          <Link href="/" locale="ar" className="hover:text-cyan-500">العربية</Link>
+          <Link href="/" locale="en" className="hover:text-cyan-500">English</Link>
           <span className="text-muted-foreground/30">|</span>
           <ThemeToggle />
         </div>
