@@ -15,11 +15,58 @@
     "welcome": "Welcome back, {name}",
     "orders": "Recent Orders",
     "wishlist": "Wishlist",
-    "tracking": "Order Tracking"
+    "tracking": "Order Tracking",
+    "overview": "Overview",
+    "profile": "Profile",
+    "settings": "Settings",
+    "logout": "Logout",
+    "totalOrders": "Total Orders",
+    "activeOrders": "Active Orders",
+    "totalSpent": "Total Spent",
+    "orderId": "Order ID",
+    "product": "Product",
+    "date": "Date",
+    "status": "Status",
+    "amount": "Amount"
   },
   "Common": {
     "backToHome": "Back to Home",
     "save": "Save",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "rights": "© 2026 Lap Tec. All rights reserved.",
+    "delivered": "Delivered",
+    "processing": "Processing",
+    "pending": "Pending",
+    "inTransit": "In Transit",
+    "orderPlaced": "Order Placed"
+  },
+  "Wishlist": {
+    "title": "Wishlist",
+    "empty": "Your wishlist is empty",
+    "startShopping": "Start Shopping",
+    "explore": "Explore our products and save your favorites here."
+  },
+  "OrderTracking": {
+    "title": "Order Tracking",
+    "estimatedDelivery": "Estimated Delivery",
+    "shippingAddress": "Shipping Address",
+    "orderSummary": "Order Summary",
+    "subtotal": "Subtotal",
+    "shipping": "Shipping",
+    "total": "Total"
+  },
+  "HomePage": {
+    "badge": "Premium Laptop Marketplace",
+    "titlePrefix": "LAP ",
+    "titleSuffix": "TEC",
+    "description": "The ultimate destination for high-performance laptops. Experience the future of tech commerce.",
+    "getStarted": "Get Started",
+    "viewDashboard": "View Dashboard",
+    "dashboardTitle": "User Dashboard",
+    "dashboardDesc": "Manage your profile, orders, and settings in one place.",
+    "wishlistTitle": "Wishlist",
+    "wishlistDesc": "Save your favorite laptops for later and track price drops.",
+    "trackingTitle": "Order Tracking",
+    "trackingDesc": "Real-time updates on your delivery status and history."
   }
 }

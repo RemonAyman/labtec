@@ -1,11 +1,15 @@
+"use client"
+
 import { DashboardNav } from "@/components/dashboard/dashboard-nav"
-import { Separator } from "@/components/ui/separator"
+import { useTranslations } from "next-intl"
 
 export default function DashboardLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
+  const t = useTranslations("Dashboard")
+
   return (
     <div className="flex min-h-screen bg-background">
       {/* Sidebar */}
@@ -21,7 +25,7 @@ export default function DashboardLayout({
       {/* Main Content */}
       <main className="flex-1 overflow-y-auto">
         <header className="flex h-16 items-center border-b bg-card/50 backdrop-blur-xl px-6">
-          <h1 className="text-lg font-semibold">User Dashboard</h1>
+          <h1 className="text-lg font-semibold">{t("title")}</h1>
         </header>
         <div className="p-6">{children}</div>
       </main>

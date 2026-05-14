@@ -18,58 +18,63 @@ import {
 import { Badge } from "@/components/ui/badge"
 import { motion } from "framer-motion"
 
-const stats = [
-  {
-    title: "Total Orders",
-    value: "12",
-    icon: ShoppingBag,
-    description: "+2 from last month",
-  },
-  {
-    title: "Wishlist",
-    value: "8",
-    icon: Heart,
-    description: "Saved items",
-  },
-  {
-    title: "Active Orders",
-    value: "1",
-    icon: Clock,
-    description: "In transit",
-  },
-  {
-    title: "Total Spent",
-    value: "$4,299",
-    icon: CreditCard,
-    description: "Lifetime value",
-  },
-]
-
-const recentOrders = [
-  {
-    id: "ORD-1234",
-    product: "ASUS ROG Zephyrus G14",
-    date: "2024-05-10",
-    status: "Delivered",
-    amount: "$1,599",
-  },
-  {
-    id: "ORD-1235",
-    product: "MacBook Pro M3 Max",
-    date: "2024-05-12",
-    status: "Processing",
-    amount: "$3,200",
-  },
-  {
-    id: "ORD-1236",
-    product: "Logitech MX Master 3S",
-    date: "2024-05-14",
-    status: "Pending",
-    amount: "$99",
-  },
-]
+import { useTranslations } from "next-intl"
 
 export default function DashboardPage() {
+  const t = useTranslations("Dashboard")
+  const tCommon = useTranslations("Common")
+
+  const stats = [
+    {
+      title: t("totalOrders"),
+      value: "12",
+      icon: ShoppingBag,
+      description: "+2 from last month",
+    },
+    {
+      title: t("wishlist"),
+      value: "8",
+      icon: Heart,
+      description: "Saved items",
+    },
+    {
+      title: t("activeOrders"),
+      value: "1",
+      icon: Clock,
+      description: "In transit",
+    },
+    {
+      title: t("totalSpent"),
+      value: "$4,299",
+      icon: CreditCard,
+      description: "Lifetime value",
+    },
+  ]
+
+  const recentOrders = [
+    {
+      id: "ORD-1234",
+      product: "ASUS ROG Zephyrus G14",
+      date: "2024-05-10",
+      status: tCommon("delivered"),
+      amount: "$1,599",
+    },
+    {
+      id: "ORD-1235",
+      product: "MacBook Pro M3 Max",
+      date: "2024-05-12",
+      status: tCommon("processing"),
+      amount: "$3,200",
+    },
+    {
+      id: "ORD-1236",
+      product: "Logitech MX Master 3S",
+      date: "2024-05-14",
+      status: tCommon("pending"),
+      amount: "$99",
+    },
+  ]
+
   return (
     <div className="space-y-8">
       {/* Stats Grid */}
@@ -102,17 +107,17 @@ export default function DashboardPage() {
       {/* Recent Orders */}
       <Card className="border-cyan-500/10 bg-card/50">
         <CardHeader>
-          <CardTitle>Recent Orders</CardTitle>
+          <CardTitle>{t("orders")}</CardTitle>
         </CardHeader>
         <CardContent>
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead>Order ID</TableHead>
-                <TableHead>Product</TableHead>
-                <TableHead>Date</TableHead>
-                <TableHead>Status</TableHead>
-                <TableHead className="text-right">Amount</TableHead>
+                <TableHead>{t("orderId")}</TableHead>
+                <TableHead>{t("product")}</TableHead>
+                <TableHead>{t("date")}</TableHead>
+                <TableHead>{t("status")}</TableHead>
+                <TableHead className="text-right">{t("amount")}</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -125,8 +130,8 @@ export default function DashboardPage() {
                   <TableCell>{order.date}</TableCell>
                   <TableCell>
                     <Badge 
-                      variant={order.status === "Delivered" ? "default" : "secondary"}
-                      className={order.status === "Delivered" ? "bg-green-500/20 text-green-500" : ""}
+                      variant={order.status === tCommon("delivered") ? "default" : "secondary"}
+                      className={order.status === tCommon("delivered") ? "bg-green-500/20 text-green-500" : ""}
                     >
                       {order.status}
                     </Badge>

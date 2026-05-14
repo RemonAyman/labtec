@@ -5,42 +5,45 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { 
   CheckCircle2, 
-  Circle, 
   Package, 
   Truck, 
   MapPin, 
   ArrowLeft 
 } from "lucide-react"
-import { motion } from "framer-motion"
 import { Link } from "@/i18n/routing"
 import { buttonVariants } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
-
-const statusSteps = [
-  { id: "PENDING", label: "Order Placed", icon: CheckCircle2, date: "May 10, 2024" },
-  { id: "PROCESSING", label: "Processing", icon: Package, date: "May 11, 2024" },
-  { id: "DELIVERING", label: "In Transit", icon: Truck, date: "May 12, 2024" },
-  { id: "DELIVERED", label: "Delivered", icon: MapPin, date: "Pending" },
-]
+import { useTranslations } from "next-intl"
 
 export default function OrderTrackingPage() {
   const { id } = useParams()
+  const t = useTranslations("OrderTracking")
+  const tCommon = useTranslations("Common")
+  const tDash = useTranslations("Dashboard")
+
   const currentStatus = "DELIVERING" // Mock status
+
+  const statusSteps = [
+    { id: "PENDING",    label: tCommon("orderPlaced"),  icon: CheckCircle2, date: "May 10, 2024" },
+    { id: "PROCESSING", label: tCommon("processing"),   icon: Package,      date: "May 11, 2024" },
+    { id: "DELIVERING", label: tCommon("inTransit"),    icon: Truck,        date: "May 12, 2024" },
+    { id: "DELIVERED",  label: tCommon("delivered"),    icon: MapPin,       date: tCommon("pending") },
+  ]
 
   return (
     <div className="container max-w-4xl py-8">
       <div className="mb-6">
         <Link href="/dashboard" className={cn(buttonVariants({ variant: "ghost" }), "-ml-2 mb-2 w-fit flex items-center")}>
           <ArrowLeft className="mr-2 h-4 w-4 rtl:rotate-180" />
-          Back to Dashboard
+          {tDash("title")}
         </Link>
         <div className="flex flex-col justify-between gap-4 md:flex-row md:items-center">
           <div>
-            <h1 className="text-3xl font-bold tracking-tight">Order Tracking</h1>
-            <p className="text-muted-foreground">Order ID: {id}</p>
+            <h1 className="text-3xl font-bold tracking-tight">{t("title")} #{id}</h1>
+            <p className="text-muted-foreground">{t("estimatedDelivery")}: May 15, 2024</p>
           </div>
           <Badge className="w-fit bg-cyan-500/20 text-cyan-500 hover:bg-cyan-500/30">
-            In Transit
+            {tCommon("inTransit")}
           </Badge>
         </div>
       </div>
@@ -49,14 +52,12 @@ export default function OrderTrackingPage() {
         {/* Tracking Stepper */}
         <Card className="border-cyan-500/10 bg-card/50">
           <CardHeader>
-            <CardTitle>Delivery Status</CardTitle>
+            <CardTitle>{t("title")}</CardTitle>
           </CardHeader>
           <CardContent className="pt-6">
             <div className="relative">
               {statusSteps.map((step, i) => {
                 const isActive = statusSteps.findIndex(s => s.id === currentStatus) >= i
-                const isCurrent = step.id === currentStatus
-
                 return (
                   <div key={step.id} className="mb-8 flex items-start last:mb-0">
                     <div className="relative mr-4 flex flex-col items-center rtl:ml-4 rtl:mr-0">
@@ -75,13 +76,11 @@ export default function OrderTrackingPage() {
                         />
                       )}
                     </div>
-                    <div className="flex flex-col">
+                    <div className="flex flex-col pt-1">
                       <p className={`font-semibold ${isActive ? "text-foreground" : "text-muted-foreground"}`}>
                         {step.label}
                       </p>
-                      <p className="text-sm text-muted-foreground">
-                        {step.date}
-                      </p>
+                      <p className="text-sm text-muted-foreground">{step.date}</p>
                     </div>
                   </div>
                 )
@@ -94,7 +93,7 @@ export default function OrderTrackingPage() {
         <div className="grid gap-6 md:grid-cols-2">
           <Card className="border-cyan-500/10 bg-card/50">
             <CardHeader>
-              <CardTitle>Shipping Address</CardTitle>
+              <CardTitle>{t("shippingAddress")}</CardTitle>
             </CardHeader>
             <CardContent>
               <p className="font-semibold">Remon Ayman</p>
@@ -107,19 +106,19 @@ export default function OrderTrackingPage() {
           </Card>
           <Card className="border-cyan-500/10 bg-card/50">
             <CardHeader>
-              <CardTitle>Order Summary</CardTitle>
+              <CardTitle>{t("orderSummary")}</CardTitle>
             </CardHeader>
             <CardContent className="space-y-2">
               <div className="flex justify-between text-sm">
-                <span>Subtotal</span>
+                <span>{t("subtotal")}</span>
                 <span>$1,599.00</span>
               </div>
               <div className="flex justify-between text-sm">
-                <span>Shipping</span>
+                <span>{t("shipping")}</span>
                 <span>$10.00</span>
               </div>
               <div className="flex justify-between border-t pt-2 font-bold text-cyan-500">
-                <span>Total</span>
+                <span>{t("total")}</span>
                 <span>$1,609.00</span>
               </div>
             </CardContent>

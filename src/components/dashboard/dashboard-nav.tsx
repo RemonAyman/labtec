@@ -12,37 +12,37 @@ import {
 } from "lucide-react"
 import { useTranslations } from "next-intl"
 
-const items = [
-  {
-    title: "Overview",
-    href: "/dashboard",
-    icon: LayoutDashboard,
-  },
-  {
-    title: "Orders",
-    href: "/dashboard/orders",
-    icon: ShoppingBag,
-  },
-  {
-    title: "Wishlist",
-    href: "/wishlist",
-    icon: Heart,
-  },
-  {
-    title: "Profile",
-    href: "/dashboard/profile",
-    icon: User,
-  },
-  {
-    title: "Settings",
-    href: "/dashboard/settings",
-    icon: Settings,
-  },
-]
-
 export function DashboardNav() {
   const pathname = usePathname()
   const t = useTranslations("Dashboard")
+
+  const items = [
+    {
+      title: t("overview"),
+      href: "/dashboard",
+      icon: LayoutDashboard,
+    },
+    {
+      title: t("orders"),
+      href: "/dashboard/orders",
+      icon: ShoppingBag,
+    },
+    {
+      title: t("wishlist"),
+      href: "/wishlist",
+      icon: Heart,
+    },
+    {
+      title: t("profile"),
+      href: "/dashboard/profile",
+      icon: User,
+    },
+    {
+      title: t("settings"),
+      href: "/dashboard/settings",
+      icon: Settings,
+    },
+  ]
 
   return (
     <nav className="flex flex-col space-y-2 p-4">
@@ -61,7 +61,7 @@ export function DashboardNav() {
       ))}
       <button className="flex items-center space-x-3 rounded-lg px-3 py-2 text-sm font-medium text-destructive transition-all hover:bg-destructive/10 rtl:space-x-reverse">
         <LogOut className="h-5 w-5" />
-        <span>Logout</span>
+        <span>{t("logout")}</span>
       </button>
     </nav>
   )
