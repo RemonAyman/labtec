@@ -49,7 +49,7 @@ export default async function RootLayout({
           attribute="class"
           defaultTheme="system"
           enableSystem
-          disableTransitionOnChange
+          storageKey="laptec-theme"
         >
           <NextIntlClientProvider messages={messages}>
             {children}
