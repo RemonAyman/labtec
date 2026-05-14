@@ -1,7 +1,8 @@
 "use client"
 
 import { useState } from "react"
-import { Button } from "@/components/ui/button"
+import { Button, buttonVariants } from "@/components/ui/button"
+import { cn } from "@/lib/utils"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
@@ -36,12 +37,10 @@ export default function ForgotPasswordPage() {
       >
         <Card className="border-cyan-500/20 bg-background/50 backdrop-blur-xl">
           <CardHeader className="space-y-1">
-            <Button variant="ghost" asChild className="-ml-2 mb-2 w-fit">
-              <Link href="/login" className="flex items-center text-xs">
-                <ArrowLeft className="mr-2 h-3 w-3 rtl:rotate-180" />
-                Back to Login
-              </Link>
-            </Button>
+            <Link href="/login" className={cn(buttonVariants({ variant: "ghost" }), "-ml-2 mb-2 w-fit flex items-center text-xs")}>
+              <ArrowLeft className="mr-2 h-3 w-3 rtl:rotate-180" />
+              Back to Login
+            </Link>
             <CardTitle className="text-2xl font-bold tracking-tight">
               Reset Password
             </CardTitle>

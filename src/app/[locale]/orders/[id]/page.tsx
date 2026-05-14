@@ -13,7 +13,8 @@ import {
 } from "lucide-react"
 import { motion } from "framer-motion"
 import { Link } from "@/i18n/routing"
-import { Button } from "@/components/ui/button"
+import { buttonVariants } from "@/components/ui/button"
+import { cn } from "@/lib/utils"
 
 const statusSteps = [
   { id: "PENDING", label: "Order Placed", icon: CheckCircle2, date: "May 10, 2024" },
@@ -29,12 +30,10 @@ export default function OrderTrackingPage() {
   return (
     <div className="container max-w-4xl py-8">
       <div className="mb-6">
-        <Button variant="ghost" asChild className="-ml-2 mb-2">
-          <Link href="/dashboard" className="flex items-center">
-            <ArrowLeft className="mr-2 h-4 w-4 rtl:rotate-180" />
-            Back to Dashboard
-          </Link>
-        </Button>
+        <Link href="/dashboard" className={cn(buttonVariants({ variant: "ghost" }), "-ml-2 mb-2 w-fit flex items-center")}>
+          <ArrowLeft className="mr-2 h-4 w-4 rtl:rotate-180" />
+          Back to Dashboard
+        </Link>
         <div className="flex flex-col justify-between gap-4 md:flex-row md:items-center">
           <div>
             <h1 className="text-3xl font-bold tracking-tight">Order Tracking</h1>

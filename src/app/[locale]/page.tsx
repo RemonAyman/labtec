@@ -1,6 +1,7 @@
 import { useTranslations } from "next-intl"
 import { Link } from "@/i18n/routing"
-import { Button } from "@/components/ui/button"
+import { Button, buttonVariants } from "@/components/ui/button"
+import { cn } from "@/lib/utils"
 import { motion } from "framer-motion"
 import { 
   Laptop, 
@@ -31,14 +32,12 @@ export default function HomePage() {
         </p>
 
         <div className="flex flex-wrap justify-center gap-4">
-          <Button asChild size="lg" className="bg-cyan-600 hover:bg-cyan-700 px-8">
-            <Link href="/login">
-              Get Started <ArrowRight className="ml-2 h-4 w-4 rtl:rotate-180" />
-            </Link>
-          </Button>
-          <Button asChild variant="outline" size="lg" className="border-cyan-500/20 hover:bg-cyan-500/5">
-            <Link href="/dashboard">View Dashboard</Link>
-          </Button>
+          <Link href="/login" className={cn(buttonVariants({ size: "lg" }), "bg-cyan-600 hover:bg-cyan-700 px-8")}>
+            Get Started <ArrowRight className="ml-2 h-4 w-4 rtl:rotate-180" />
+          </Link>
+          <Link href="/dashboard" className={cn(buttonVariants({ variant: "outline", size: "lg" }), "border-cyan-500/20 hover:bg-cyan-500/5")}>
+            View Dashboard
+          </Link>
         </div>
 
         {/* Feature Grid */}

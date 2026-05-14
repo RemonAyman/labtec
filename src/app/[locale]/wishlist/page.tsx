@@ -4,8 +4,9 @@ import { useWishlist } from "@/store/use-wishlist"
 import { ProductCard } from "@/components/products/product-card"
 import { motion } from "framer-motion"
 import { Heart } from "lucide-react"
-import { Button } from "@/components/ui/button"
+import { Button, buttonVariants } from "@/components/ui/button"
 import { Link } from "@/i18n/routing"
+import { cn } from "@/lib/utils"
 
 export default function WishlistPage() {
   const { items } = useWishlist()
@@ -20,9 +21,9 @@ export default function WishlistPage() {
         <p className="text-muted-foreground">
           Explore our products and save your favorites here.
         </p>
-        <Button asChild className="bg-cyan-600 hover:bg-cyan-700">
-          <Link href="/">Start Shopping</Link>
-        </Button>
+        <Link href="/" className={cn(buttonVariants(), "bg-cyan-600 hover:bg-cyan-700")}>
+          Start Shopping
+        </Link>
       </div>
     )
   }
