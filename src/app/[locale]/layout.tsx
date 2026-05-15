@@ -46,9 +46,7 @@ export default async function RootLayout({
     <html lang={locale} dir={direction} suppressHydrationWarning>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <ThemeProvider
-          attribute="class"
           defaultTheme="system"
-          enableSystem
           storageKey="laptec-theme"
         >
           <NextIntlClientProvider messages={messages}>
