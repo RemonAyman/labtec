@@ -1,13 +1,19 @@
 import Image from 'next/image'
 import demoItem from "../../../../../public/images/photo-1531297484001-80022131f5a1.avif"
-import user from "../../../../../public/images/rev-1.jpg"
-import { Check, CircleCheckBig, ShoppingBasket, ShoppingBasketIcon } from 'lucide-react'
+import { Check, CircleCheckBig, ShoppingBasket } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 
 import Slider from '@/components/products/PostDetails/Slider/Slider'
 import Review from '@/components/products/PostDetails/Review'
 
-const ProductDetails = () => {
+interface Props {
+   params: Promise<{ productId: string }>
+}
+
+const ProductDetails = async ({ params }: Props) => {
+   // get params
+   const {productId} = await params
+   console.log(productId)
    return (
       <div className='container mx-auto py-10'>
 
@@ -73,7 +79,7 @@ const ProductDetails = () => {
 
             </div>
          </div>
-         
+
          {/* second section */}
          <div className='mb-10 px-2 md:px-6'>
 
