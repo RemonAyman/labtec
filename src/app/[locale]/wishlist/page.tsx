@@ -4,12 +4,14 @@ import { useWishlist } from "@/store/use-wishlist"
 import { ProductCard } from "@/components/products/product-card"
 import { motion } from "framer-motion"
 import { Heart } from "lucide-react"
-import { Button, buttonVariants } from "@/components/ui/button"
+import { buttonVariants } from "@/components/ui/button"
 import { Link } from "@/i18n/routing"
 import { cn } from "@/lib/utils"
+import { useTranslations } from "next-intl"
 
 export default function WishlistPage() {
   const { items } = useWishlist()
+  const t = useTranslations("Wishlist")
 
   if (items.length === 0) {
     return (
@@ -17,12 +19,10 @@ export default function WishlistPage() {
         <div className="rounded-full bg-cyan-500/10 p-6">
           <Heart className="h-12 w-12 text-cyan-500" />
         </div>
-        <h1 className="text-2xl font-bold">Your wishlist is empty</h1>
-        <p className="text-muted-foreground">
-          Explore our products and save your favorites here.
-        </p>
+        <h1 className="text-2xl font-bold">{t("empty")}</h1>
+        <p className="text-muted-foreground">{t("explore")}</p>
         <Link href="/" className={cn(buttonVariants(), "bg-cyan-600 hover:bg-cyan-700")}>
-          Start Shopping
+          {t("startShopping")}
         </Link>
       </div>
     )
@@ -32,7 +32,7 @@ export default function WishlistPage() {
     <div className="container py-8">
       <div className="mb-8 flex items-center space-x-4 rtl:space-x-reverse">
         <Heart className="h-8 w-8 text-cyan-500" />
-        <h1 className="text-3xl font-bold tracking-tight">Wishlist ({items.length})</h1>
+        <h1 className="text-3xl font-bold tracking-tight">{t("title")} ({items.length})</h1>
       </div>
 
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">

@@ -15,11 +15,58 @@
     "welcome": "مرحباً بعودتك، {name}",
     "orders": "الطلبات الأخيرة",
     "wishlist": "قائمة الأمنيات",
-    "tracking": "تتبع الطلبات"
+    "tracking": "تتبع الطلبات",
+    "overview": "نظرة عامة",
+    "profile": "الملف الشخصي",
+    "settings": "الإعدادات",
+    "logout": "تسجيل الخروج",
+    "totalOrders": "إجمالي الطلبات",
+    "activeOrders": "الطلبات النشطة",
+    "totalSpent": "إجمالي المدفوعات",
+    "orderId": "رقم الطلب",
+    "product": "المنتج",
+    "date": "التاريخ",
+    "status": "الحالة",
+    "amount": "المبلغ"
   },
   "Common": {
     "backToHome": "العودة للرئيسية",
     "save": "حفظ",
-    "cancel": "إلغاء"
+    "cancel": "إلغاء",
+    "rights": "© 2026 لاب تك. جميع الحقوق محفوظة.",
+    "delivered": "تم التوصيل",
+    "processing": "قيد المعالجة",
+    "pending": "قيد الانتظار",
+    "inTransit": "في الطريق",
+    "orderPlaced": "تم الطلب"
+  },
+  "Wishlist": {
+    "title": "قائمة أمنياتك",
+    "empty": "قائمة الأمنيات فارغة",
+    "startShopping": "ابدأ التسوق",
+    "explore": "استعرض منتجاتنا واحفظ مفضلاتك هنا."
+  },
+  "OrderTracking": {
+    "title": "تتبع الطلبات",
+    "estimatedDelivery": "موعد التوصيل المتوقع",
+    "shippingAddress": "عنوان الشحن",
+    "orderSummary": "ملخص الطلب",
+    "subtotal": "المجموع الفرعي",
+    "shipping": "الشحن",
+    "total": "الإجمالي"
+  },
+  "HomePage": {
+    "badge": "سوق الحواسيب المحمولة الرائد",
+    "titlePrefix": "لاب ",
+    "titleSuffix": "تك",
+    "description": "وجهتك الأولى للحواسيب المحمولة عالية الأداء. اختبر مستقبل التجارة الإلكترونية التقنية.",
+    "getStarted": "ابدأ الآن",
+    "viewDashboard": "عرض لوحة التحكم",
+    "dashboardTitle": "لوحة تحكم المستخدم",
+    "dashboardDesc": "أدر ملفك الشخصي، طلباتك، وإعداداتك في مكان واحد.",
+    "wishlistTitle": "قائمة الأمنيات",
+    "wishlistDesc": "احفظ حواسيبك المفضلة لوقت لاحق وتتبع انخفاض الأسعار.",
+    "trackingTitle": "تتبع الطلبات",
+    "trackingDesc": "تحديثات لحظية لحالة التوصيل وتاريخ الطلبات."
   }
 }
