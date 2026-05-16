@@ -2,7 +2,7 @@ import Image from 'next/image'
 import demoItem from "../../../../../public/images/photo-1531297484001-80022131f5a1.avif"
 import { Check, CircleCheckBig, ShoppingBasket } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-
+import Link from 'next/link'
 import Slider from '@/components/products/PostDetails/Slider/Slider'
 import Review from '@/components/products/PostDetails/Review'
 
@@ -40,7 +40,9 @@ const ProductDetails = async ({ params }: Props) => {
                <div className='flex flex-col w-full gap-4 mb-9'>
                   <button className='bg-sky-500 flex items-center justify-center gap-1 hover:bg-sky-600 transition-all rounded py-3 cursor-pointer text-black border hover:shadow font-semibold'><ShoppingBasket /> Add To Cart</button>
                   <button className='bg-white hover:bg-slate-200 transition-all rounded py-3 cursor-pointer text-black  border hover:shadow font-semibold'>Buy Now</button>
-                  <button className='bg-black/90 rounded py-3 hover:bg-black/20 transition-all cursor-pointer text-white  border hover:shadow font-semibold'>Connect By WhatsApp</button>
+                  <Link className='w-full' href="https://wa.me/01142994026" target="_blank">
+                     <button className='bg-black/90 rounded py-3 hover:bg-black/20 transition-all cursor-pointer text-white w-full border hover:shadow font-semibold'>Connect By WhatsApp</button>
+                  </Link>
                </div>
 
                <div className='p-2'>
