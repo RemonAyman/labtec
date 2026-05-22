@@ -68,5 +68,17 @@
     "wishlistDesc": "Save your favorite laptops for later and track price drops.",
     "trackingTitle": "Order Tracking",
     "trackingDesc": "Real-time updates on your delivery status and history."
+  },
+  "Navigation": {
+    "home": "Home",
+    "products": "Products",
+    "sellLaptop": "Sell Laptop",
+    "dashboard": "Dashboard",
+    "admin": "Admin Panel",
+    "login": "Login",
+    "logout": "Logout",
+    "cart": "Cart",
+    "searchPlaceholder": "Search for laptops...",
+    "wishlist": "Wishlist"
   }
 }

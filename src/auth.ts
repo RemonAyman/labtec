@@ -1,16 +1,9 @@
 import NextAuth from "next-auth"
 import { PrismaAdapter } from "@auth/prisma-adapter"
-import { PrismaClient } from "@prisma/client"
-import { Pool } from "pg"
-import { PrismaPg } from "@prisma/adapter-pg"
+import { db as prisma } from "@/lib/db"
 import Credentials from "next-auth/providers/credentials"
 import bcrypt from "bcryptjs"
 import { loginSchema } from "@/lib/validations/auth"
-
-const connectionString = `${process.env.DATABASE_URL}`
-const pool = new Pool({ connectionString })
-const adapter = new PrismaPg(pool)
-const prisma = new PrismaClient({ adapter })
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
   adapter: PrismaAdapter(prisma),
@@ -38,14 +31,26 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     }),
   ],
   callbacks: {
+    async jwt({ token, user }) {
+      if (user) {
+        token.role = (user as any).role
+      } else if (token.sub) {
+        const dbUser = await prisma.user.findUnique({
+          where: { id: token.sub },
+          select: { role: true },
+        })
+        if (dbUser) {
+          token.role = dbUser.role
+        }
+      }
+      return token
+    },
     async session({ session, token }) {
       if (token.sub && session.user) {
         session.user.id = token.sub
+        session.user.role = token.role as any
       }
       return session
-    },
-    async jwt({ token }) {
-      return token
     },
   },
   session: { strategy: "jwt" },

@@ -11,14 +11,16 @@ import { Label } from "@/components/ui/label"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { motion } from "framer-motion"
 import { useTranslations } from "next-intl"
-import { Link } from "@/i18n/routing"
+import { Link, useRouter } from "@/i18n/routing"
 import { toast } from "sonner"
 import { Loader2 } from "lucide-react"
+import { signIn } from "next-auth/react"
 
 type LoginFormValues = z.infer<typeof loginSchema>
 
 export function LoginForm() {
   const t = useTranslations("Auth")
+  const router = useRouter()
   const [isLoading, setIsLoading] = useState(false)
 
   const {
@@ -32,11 +34,21 @@ export function LoginForm() {
   async function onSubmit(data: LoginFormValues) {
     setIsLoading(true)
     try {
-      // Logic for authentication will go here
-      console.log(data)
-      toast.success("Welcome back!")
+      const result = await signIn("credentials", {
+        email: data.email,
+        password: data.password,
+        redirect: false,
+      })
+
+      if (result?.error) {
+        toast.error("Invalid email or password")
+      } else {
+        toast.success("Welcome back!")
+        router.push("/dashboard")
+        router.refresh()
+      }
     } catch (error) {
-      toast.error("Invalid credentials")
+      toast.error("An unexpected error occurred. Please try again.")
     } finally {
       setIsLoading(false)
     }

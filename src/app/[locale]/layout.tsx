@@ -6,6 +6,10 @@ import { getMessages } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { routing } from '@/i18n/routing';
 import { ThemeProvider } from "@/components/theme-provider";
+import { SessionProvider } from "next-auth/react"
+import { Header } from "@/components/layout/header"
+import { Footer } from "@/components/layout/footer"
+import { WhatsAppButton } from "@/components/ui/whatsapp-button"
 
 
 const montaserrat = Montserrat({
@@ -14,7 +18,7 @@ const montaserrat = Montserrat({
 
 export const metadata: Metadata = {
   title: "Lap Tec | Premium Laptop Marketplace",
-  description: "Functional, modern, and production-ready laptop ecommerce marketplace.",
+  description: "Egypt's premium laptop e-commerce marketplace.",
 };
 
 export default async function RootLayout({
@@ -40,14 +44,21 @@ export default async function RootLayout({
   return (
     <html lang={locale} dir={direction} suppressHydrationWarning>
       <body className={`${montaserrat.className} antialiased`}>
-        <ThemeProvider
-          defaultTheme="system"
-          storageKey="laptec-theme"
-        >
-          <NextIntlClientProvider messages={messages}>
-            {children}
-          </NextIntlClientProvider>
-        </ThemeProvider>
+        <SessionProvider>
+          <ThemeProvider
+            defaultTheme="system"
+            storageKey="laptec-theme"
+          >
+            <NextIntlClientProvider messages={messages}>
+              <div className="flex min-h-screen flex-col bg-background text-foreground transition-colors duration-300">
+                <Header />
+                <main className="flex-1">{children}</main>
+                <Footer />
+                <WhatsAppButton />
+              </div>
+            </NextIntlClientProvider>
+          </ThemeProvider>
+        </SessionProvider>
       </body>
     </html>
   );

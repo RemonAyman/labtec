@@ -1,9 +1,8 @@
 import { useTranslations } from "next-intl"
 import { Link } from "@/i18n/routing"
-import { Button, buttonVariants } from "@/components/ui/button"
+import { buttonVariants } from "@/components/ui/button"
 import { ThemeToggle } from "@/components/theme-toggle"
 import { cn } from "@/lib/utils"
-import { motion } from "framer-motion"
 import { 
   Laptop, 
   User, 
@@ -12,8 +11,11 @@ import {
   ArrowRight,
   ShieldCheck
 } from "lucide-react"
+import { auth } from "@/auth"
 
-export default function HomePage() {
+export default async function HomePage() {
+  const session = await auth()
+  const isLoggedIn = !!session?.user?.id
   const t = useTranslations("HomePage")
   const tCommon = useTranslations("Common")
 
@@ -35,7 +37,7 @@ export default function HomePage() {
         </p>
 
         <div className="flex flex-wrap justify-center gap-4">
-          <Link href="/login" className={cn(buttonVariants({ size: "lg" }), "bg-cyan-600 hover:bg-cyan-700 px-8")}>
+          <Link href={isLoggedIn ? "/dashboard" : "/login"} className={cn(buttonVariants({ size: "lg" }), "bg-cyan-600 hover:bg-cyan-700 px-8")}>
             {t("getStarted")} <ArrowRight className="ml-2 h-4 w-4 rtl:rotate-180" />
           </Link>
           <Link href="/dashboard" className={cn(buttonVariants({ variant: "outline", size: "lg" }), "border-cyan-500/20 hover:bg-cyan-500/5")}>

@@ -11,14 +11,16 @@ import { Label } from "@/components/ui/label"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { motion } from "framer-motion"
 import { useTranslations } from "next-intl"
-import { Link } from "@/i18n/routing"
+import { Link, useRouter } from "@/i18n/routing"
 import { toast } from "sonner"
 import { Loader2 } from "lucide-react"
+import { registerUser } from "@/app/actions/auth-actions"
 
 type RegisterFormValues = z.infer<typeof registerSchema>
 
 export function RegisterForm() {
   const t = useTranslations("Auth")
+  const router = useRouter()
   const [isLoading, setIsLoading] = useState(false)
 
   const {
@@ -32,11 +34,15 @@ export function RegisterForm() {
   async function onSubmit(data: RegisterFormValues) {
     setIsLoading(true)
     try {
-      // Logic for registration will go here
-      console.log(data)
-      toast.success("Account created successfully!")
+      const response = await registerUser(data)
+      if (response.error) {
+        toast.error(response.error)
+      } else {
+        toast.success("Account created successfully!")
+        router.push("/login")
+      }
     } catch (error) {
-      toast.error("Something went wrong")
+      toast.error("Something went wrong. Please try again.")
     } finally {
       setIsLoading(false)
     }
