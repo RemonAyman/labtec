@@ -1,9 +1,11 @@
 import createMiddleware from "next-intl/middleware"
-import { auth } from "@/auth"
+import NextAuth from "next-auth"
+import { authConfig } from "./auth.config"
 import { NextResponse } from "next/server"
 import { routing } from "./i18n/routing"
 
 const intlMiddleware = createMiddleware(routing)
+const { auth } = NextAuth(authConfig)
 
 const protectedRoutes = ["/dashboard", "/checkout", "/admin", "/sell-laptop"]
 
