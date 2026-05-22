@@ -1,4 +1,4 @@
-import { useTranslations } from "next-intl"
+import { getTranslations } from "next-intl/server"
 import { Link } from "@/i18n/routing"
 import { buttonVariants } from "@/components/ui/button"
 import { ThemeToggle } from "@/components/theme-toggle"
@@ -16,8 +16,8 @@ import { auth } from "@/auth"
 export default async function HomePage() {
   const session = await auth()
   const isLoggedIn = !!session?.user?.id
-  const t = useTranslations("HomePage")
-  const tCommon = useTranslations("Common")
+  const t = await getTranslations("HomePage")
+  const tCommon = await getTranslations("Common")
 
   return (
     <div className="flex min-h-screen flex-col bg-background">

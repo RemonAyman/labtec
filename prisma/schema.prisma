@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -9,30 +6,24 @@ datasource db {
   provider = "postgresql"
 }
 
-enum UserRole {
-  USER
-  ADMIN
-}
-
 model User {
-  id            String    @id @default(cuid())
+  id            String              @id @default(cuid())
   name          String?
-  email         String?   @unique
+  email         String?             @unique
   emailVerified DateTime?
   image         String?
   password      String?
-  role          UserRole  @default(USER)
+  role          UserRole            @default(USER)
+  createdAt     DateTime            @default(now())
+  updatedAt     DateTime            @updatedAt
   accounts      Account[]
-  sessions      Session[]
-  wishlist      Wishlist?
+  addresses     Address[]
   cart          Cart?
   orders        Order[]
-  addresses     Address[]
   reviews       Review[]
+  sessions      Session[]
   usedLaptops   UsedLaptopRequest[]
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  wishlist      Wishlist?
 }
 
 model Account {
@@ -41,15 +32,14 @@ model Account {
   type              String
   provider          String
   providerAccountId String
-  refresh_token     String? @db.Text
-  access_token      String? @db.Text
+  refresh_token     String?
+  access_token      String?
   expires_at        Int?
   token_type        String?
   scope             String?
-  id_token          String? @db.Text
+  id_token          String?
   session_state     String?
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, providerAccountId])
 }
@@ -84,28 +74,26 @@ model Brand {
 }
 
 model Product {
-  id          String   @id @default(cuid())
+  id          String         @id @default(cuid())
   name        String
   nameAr      String?
-  description String   @db.Text
-  descAr      String?  @db.Text
+  description String
+  descAr      String?
   price       Float
-  images      ProductImage[]
   categoryId  String
-  category    Category @relation(fields: [categoryId], references: [id])
   brandId     String
-  brand       Brand    @relation(fields: [brandId], references: [id])
-  condition   String   @default("NEW") // NEW, USED
-  rating      Float    @default(0)
-  stock       Int      @default(0)
-  
-  wishlists   Wishlist[]
+  condition   String         @default("NEW")
+  rating      Float          @default(0)
+  stock       Int            @default(0)
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
   cartItems   CartItem[]
   orderItems  OrderItem[]
+  brand       Brand          @relation(fields: [brandId], references: [id])
+  category    Category       @relation(fields: [categoryId], references: [id])
+  images      ProductImage[]
   reviews     Review[]
-
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  wishlists   Wishlist[]     @relation("ProductToWishlist")
 }
 
 model ProductImage {
@@ -116,25 +104,97 @@ model ProductImage {
 }
 
 model Wishlist {
-  id        String    @id @default(cuid())
-  userId    String    @unique
-  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
-  products  Product[]
+  id       String    @id @default(cuid())
+  userId   String    @unique
+  user     User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  products Product[] @relation("ProductToWishlist")
 }
 
 model Order {
   id            String      @id @default(cuid())
   userId        String
-  user          User        @relation(fields: [userId], references: [id])
-  items         OrderItem[]
   total         Float
   status        OrderStatus @default(PENDING)
   paymentStatus String      @default("UNPAID")
   addressId     String
-  address       Address     @relation(fields: [addressId], references: [id])
-  
   createdAt     DateTime    @default(now())
   updatedAt     DateTime    @updatedAt
+  address       Address     @relation(fields: [addressId], references: [id])
+  user          User        @relation(fields: [userId], references: [id])
+  items         OrderItem[]
+}
+
+model OrderItem {
+  id        String  @id @default(cuid())
+  orderId   String
+  productId String
+  quantity  Int
+  price     Float
+  order     Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  product   Product @relation(fields: [productId], references: [id])
+}
+
+model Address {
+  id        String  @id @default(cuid())
+  userId    String
+  name      String
+  phone     String
+  city      String
+  address   String
+  isDefault Boolean @default(false)
+  user      User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  orders    Order[]
+}
+
+model Review {
+  id        String   @id @default(cuid())
+  rating    Int
+  comment   String?
+  userId    String
+  productId String
+  createdAt DateTime @default(now())
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model UsedLaptopRequest {
+  id        String   @id @default(cuid())
+  userId    String
+  brand     String
+  model     String
+  specs     String
+  condition String
+  images    String[]
+  status    String   @default("PENDING")
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Cart {
+  id        String     @id @default(cuid())
+  userId    String     @unique
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  user      User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  items     CartItem[]
+}
+
+model CartItem {
+  id        String   @id @default(cuid())
+  cartId    String
+  productId String
+  quantity  Int      @default(1)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  cart      Cart     @relation(fields: [cartId], references: [id], onDelete: Cascade)
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@unique([cartId, productId])
+}
+
+enum UserRole {
+  USER
+  ADMIN
 }
 
 enum OrderStatus {
@@ -143,72 +203,4 @@ enum OrderStatus {
   DELIVERING
   DELIVERED
   CANCELLED
-}
-
-model OrderItem {
-  id        String  @id @default(cuid())
-  orderId   String
-  order     Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
-  productId String
-  product   Product @relation(fields: [productId], references: [id])
-  quantity  Int
-  price     Float
-}
-
-model Address {
-  id         String  @id @default(cuid())
-  userId     String
-  user       User    @relation(fields: [userId], references: [id], onDelete: Cascade)
-  name       String
-  phone      String
-  city       String
-  address    String
-  isDefault  Boolean @default(false)
-  orders     Order[]
-}
-
-model Review {
-  id        String   @id @default(cuid())
-  rating    Int
-  comment   String?  @db.Text
-  userId    String
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  productId String
-  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
-  createdAt DateTime @default(now())
-}
-
-model UsedLaptopRequest {
-  id          String   @id @default(cuid())
-  userId      String
-  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  brand       String
-  model       String
-  specs       String   @db.Text
-  condition   String
-  images      String[]
-  status      String   @default("PENDING")
-  createdAt   DateTime @default(now())
-}
-
-model Cart {
-  id        String     @id @default(cuid())
-  userId    String     @unique
-  user      User       @relation(fields: [userId], references: [id], onDelete: Cascade)
-  items     CartItem[]
-  createdAt DateTime   @default(now())
-  updatedAt DateTime   @updatedAt
-}
-
-model CartItem {
-  id        String   @id @default(cuid())
-  cartId    String
-  cart      Cart     @relation(fields: [cartId], references: [id], onDelete: Cascade)
-  productId String
-  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
-  quantity  Int      @default(1)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  @@unique([cartId, productId])
 }
